@@ -1,0 +1,30 @@
+@startuml
+
+class Texto {
+  + conteudo: String
+  + imprimir(): void
+  + exportar(): void
+}
+
+class Imagem {
+  + caminho: String
+  + imprimir(): void
+  + exportar(): void
+}
+
+class DocumentoSemVisitorApp {
+  + main(args: String[]): void
+}
+
+DocumentoSemVisitorApp --> Texto : usa
+DocumentoSemVisitorApp --> Imagem : usa
+
+note right of Texto::imprimir
+  Exibe o conteúdo do texto
+end note
+
+note right of Imagem::exportar
+  Exporta o caminho da imagem
+end note
+
+@enduml
