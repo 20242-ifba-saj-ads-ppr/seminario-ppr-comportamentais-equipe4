@@ -1,0 +1,18 @@
+@startuml
+class ListaNomes {
+  - nomes: String[]
+  - contador: int
+  + adicionar(nome: String): void
+  + imprimirTodos(): void
+}
+
+class Main {
+  + main(args: String[]): void
+}
+
+Main --> ListaNomes : usa
+
+note right of ListaNomes::imprimirTodos
+  Iteração está acoplada à estrutura
+end note
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+interface Iterator {
+  + hasNext(): boolean
+  + next(): Object
+}
+
+interface IterableCollection {
+  + criarIterator(): Iterator
+}
+
+class ListaNomes implements IterableCollection {
+  - nomes: String[]
+  - contador: int
+  + adicionar(nome: String): void
+  + criarIterator(): Iterator
+}
+
+class ListaNomesIterator implements Iterator {
+  - lista: ListaNomes
+  - posicao: int
+  + hasNext(): boolean
+  + next(): Object
+}
+
+ListaNomes --> IterableCollection
+ListaNomesIterator ..|> Iterator
+ListaNomes --> ListaNomesIterator : cria
+@enduml
