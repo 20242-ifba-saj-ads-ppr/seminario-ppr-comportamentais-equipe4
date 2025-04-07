@@ -9,12 +9,12 @@ public class Main {
         Visitante visitanteImpressao = new VisitanteImpressao();
         Visitante visitanteExportacao = new VisitanteExportacao();
 
-        System.out.println("--- Impressão ---");
+        System.out.println("--- Impressao ---");
         for (ElementoDocumento e : elementos) {
             e.aceitar(visitanteImpressao);
         }
 
-        System.out.println("\n--- Exportação ---");
+        System.out.println("\n--- Exportacao ---");
         for (ElementoDocumento e : elementos) {
             e.aceitar(visitanteExportacao);
         }

@@ -7,6 +7,6 @@ class Cozinha implements Comodo {
     }
 
     public void checarEletrodomesticos() {
-        System.out.println("Checando os eletrodomésticos da cozinha.");
+        System.out.println("Checando os eletrodomesticos da cozinha.");
     }
 }

@@ -16,13 +16,13 @@ public class IteradorDeBolinhas implements BolinhaIterator {
         }
 
         Collections.shuffle(indicesAleatorios);
-        System.out.println("Ordem aleatória definida: " + indicesAleatorios);
+        System.out.println("Ordem aleatoria definida: " + indicesAleatorios);
     }
 
     @Override
     public boolean temProxima() {
         boolean temMais = posicaoAtual < indicesAleatorios.size();
-        System.out.println("Verificando se tem próxima bolinha: " + temMais);
+        System.out.println("Verificando se tem proxima bolinha: " + temMais);
         return temMais;
     }
 
@@ -30,7 +30,7 @@ public class IteradorDeBolinhas implements BolinhaIterator {
     public String proxima() {
         int indice = indicesAleatorios.get(posicaoAtual++);
         String cor = copo.get(indice);
-        System.out.println("Pegou bolinha: " + cor + " (índice real: " + indice + ")");
+        System.out.println("Pegou bolinha: " + cor + " (indice real: " + indice + ")");
         return cor;
     }
 }
