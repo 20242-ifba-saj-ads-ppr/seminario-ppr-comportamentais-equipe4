@@ -191,9 +191,9 @@ public class Main {
 
 ## Usos conhecidos
 
-- **Coleções Java (Java Collections Framework):** Todas as coleções (List, Set, Map) implementam a interface Iterable que fornece um Iterator.
+- **Java:** Implementações como java.util.Iterator e java.util.Enumeration permitem iterar sobre coleções como listas, mapas e conjuntos..
 - **.NET (C#):** A interface IEnumerable permite o uso do foreach, que usa internamente um iterador.
-- **Python:** Todo objeto iterável implementa os métodos __iter__() e __next__().
+- **Python:** A implementação de métodos como __iter__() e __next__() permite criar iteradores personalizados para qualquer tipo de coleção.
 
 ## Padrões relacionados
 
