@@ -15,8 +15,8 @@ A classe Iterator define uma interface para acessar os elementos da coleção se
 ## Aplicabilidade
 Use o padrão Iterator quando:
 
-- permitir a navegação pelos elementos de uma coleção sem revelar sua estrutura interna;
-- possibilitar diferentes formas de percorrer os elementos de uma coleção;
+- permitir a navegação pelos elementos de uma coleção sem revelar sua estrutura interna.
+- possibilitar diferentes formas de percorrer os elementos de uma coleção.
 - oferecer uma interface padronizada que permita iterar sobre diversas estruturas de dados, promovendo o uso polimórfico da iteração.
 
 ## Código sem o Iterator
