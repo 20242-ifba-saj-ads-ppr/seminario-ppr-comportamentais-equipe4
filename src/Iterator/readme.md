@@ -71,36 +71,35 @@ end note
 @enduml
 
 ## Cenário Com o Iterator
+``` mermaid 
+classDiagram
+    class Iterator {
+        +hasNext(): boolean
+        +next(): Object
+    }
 
-@startuml
-interface Iterator {
-  + hasNext(): boolean
-  + next(): Object
-}
+    class IterableCollection {
+        +criarIterator(): Iterator
+    }
 
-interface IterableCollection {
-  + criarIterator(): Iterator
-}
+    class ListaNomes {
+        -nomes: String[]
+        -contador: int
+        +adicionar(nome: String): void
+        +criarIterator(): Iterator
+    }
 
-class ListaNomes implements IterableCollection {
-  - nomes: String[]
-  - contador: int
-  + adicionar(nome: String): void
-  + criarIterator(): Iterator
-}
+    class ListaNomesIterator {
+        -lista: ListaNomes
+        -posicao: int
+        +hasNext(): boolean
+        +next(): Object
+    }
 
-class ListaNomesIterator implements Iterator {
-  - lista: ListaNomes
-  - posicao: int
-  + hasNext(): boolean
-  + next(): Object
-}
-
-ListaNomes --> IterableCollection
-ListaNomesIterator ..|> Iterator
-ListaNomes --> ListaNomesIterator : cria
-@enduml
-
+    ListaNomes --> IterableCollection
+    ListaNomesIterator ..|> Iterator
+    ListaNomes --> ListaNomesIterator
+```
 ## Estrutura GOF
 ![image](https://github.com/user-attachments/assets/2b88b194-a588-43e2-82bb-1fc7f90405a8)
 
