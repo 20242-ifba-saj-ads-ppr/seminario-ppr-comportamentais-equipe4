@@ -7,17 +7,17 @@
 Fornecer uma maneira de acessar sequencialmente os elementos de um objeto agregado sem expor sua representação subjacente.
 
 ## Motivação
-
-Considere uma estrutura de coleção (como uma lista de objetos, um vetor ou uma árvore). Frequentemente, queremos acessar seus elementos um por um, sem saber como a coleção está implementada internamente.
-
-Se a lógica de iteração estiver embutida diretamente na estrutura da coleção, o código torna-se difícil de reutilizar e manter. O padrão Iterator resolve isso separando o comportamento de iteração da estrutura de dados, permitindo que diferentes tipos de coleções sejam percorridos de maneira uniforme e independente da implementação.
+Em estruturas de coleção como listas, vetores ou árvores, é comum a necessidade de acessar seus elementos sequencialmente, sem se preocupar com os detalhes de sua implementação interna.
+No entanto, quando a lógica de iteração está acoplada diretamente à estrutura da coleção, o código tende a se tornar rígido, difícil de manter e pouco reutilizável.
+O padrão Iterator permite alcançar essa separação de responsabilidades. A ideia central é transferir a lógica de acesso e percurso da coleção para um objeto iterador.
+A classe Iterator define uma interface para acessar os elementos da coleção sequencialmente, sem expor sua estrutura interna. O iterador é responsável por controlar a posição atual, sabendo quais elementos já foram visitados e quais ainda restam
 
 ## Aplicabilidade
 Use o padrão Iterator quando:
 
-- Você precisa acessar o conteúdo de uma coleção sem expor sua estrutura interna (listas, árvores, etc.).
-- Deseja oferecer múltiplas variações de percorrimento (por exemplo, direto, reverso).
-- Precisa ter múltiplos iteradores percorrendo a mesma coleção ao mesmo tempo.
+- permitir a navegação pelos elementos de uma coleção sem revelar sua estrutura interna;
+- possibilitar diferentes formas de percorrer os elementos de uma coleção;
+- oferecer uma interface padronizada que permita iterar sobre diversas estruturas de dados, promovendo o uso polimórfico da iteração.
 
 ## Código sem o Iterator
 
@@ -181,13 +181,11 @@ public class Main {
 ## Consequências
 
 ### Benefícios:
-- **Isola a lógica de iteração:** Evita expor detalhes internos da coleção.
-- **Suporta múltiplas iterações simultâneas:** Você pode ter vários iteradores atuando sobre a mesma coleção ao mesmo tempo.
-- **Código reutilizável:** A lógica de iteração pode ser reaproveitada em diferentes tipos de coleções.
-- **Facilidade para mudar o tipo de coleção:** Como o cliente depende da interface do Iterator, é possível trocar a implementação da coleção com impacto mínimo.
-
+- **Flexibilidade na iteração:** Diferentes formas de percorrer uma coleção podem ser facilmente aplicadas, bastando trocar o iterador ou criar variações dele.
+- **Interface simplificada:** A lógica de navegação é isolada no iterador, mantendo a coleção com uma interface mais limpa.
+- **Iterações paralelas:** É possível realizar múltiplos percursos simultâneos, já que cada iterador gerencia seu próprio estado.
+  
 ### Desvantagens:
-- **Iteração unidirecional:** Cobre apenas iteração direta (para frente); para navegar para trás, é necessário extender.
 - **Mais objetos criados:** Em estruturas com iteração simples, a criação de objetos Iterator pode parecer um overhead desnecessário.
 - **Exposição parcial de elementos internos:** Mesmo que a estrutura completa não seja revelada, os elementos ainda são acessíveis diretamente pelo iterador.
 
