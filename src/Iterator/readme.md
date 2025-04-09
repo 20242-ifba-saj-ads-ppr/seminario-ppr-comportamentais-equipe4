@@ -6,6 +6,9 @@
 ## Intenção
 Fornecer uma maneira de acessar sequencialmente os elementos de um objeto agregado sem expor sua representação subjacente.
 
+## Também conhecido como
+Cursor
+
 ## Motivação
 Em estruturas de coleção como listas, vetores ou árvores, é comum a necessidade de acessar seus elementos sequencialmente, sem se preocupar com os detalhes de sua implementação interna.
 No entanto, quando a lógica de iteração está acoplada diretamente à estrutura da coleção, o código tende a se tornar rígido, difícil de manter e pouco reutilizável.
