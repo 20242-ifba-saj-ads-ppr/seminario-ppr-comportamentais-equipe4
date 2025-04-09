@@ -101,6 +101,10 @@ ListaNomesIterator ..|> Iterator
 ListaNomes --> ListaNomesIterator : cria
 @enduml
 
+## Estrutura GOF
+![image](https://github.com/user-attachments/assets/2b88b194-a588-43e2-82bb-1fc7f90405a8)
+
+
 ## Participantes
 
 - **Iterator:** Define a interface para acessar e percorrer elementos (ex.: hasNext, next).
