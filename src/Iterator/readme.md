@@ -103,14 +103,13 @@ classDiagram
 ## Estrutura GOF
 ![image](https://github.com/user-attachments/assets/2b88b194-a588-43e2-82bb-1fc7f90405a8)
 
-
 ## Participantes
 
-- **Iterator:** Define a interface para acessar e percorrer elementos (ex.: hasNext, next).
-- **ConcreteIterator:** Implementa a interface Iterator e mantém o estado da iteração sobre os elementos.
-- **IterableCollection:** Define uma interface para criar um objeto Iterator.
-- **ListaNomes:** Implementa a interface de agregação e retorna um iterador apropriado.
-
+- **Iterator (Iterator):** Define a interface com os métodos para percorrer elementos de uma coleção (hasNext, next).
+- **ConcreteIterator (ListaNomesIterator):** Implementa a interface Iterator e mantém o controle da posição atual na coleção.
+- **Aggregate (IterableCollection):** Define uma interface para criar um objeto Iterator.
+- **ConcreteAggregate (ListaNomes):** Implementa a interface de agregação, armazena os dados (nomes) e fornece um iterador para percorrê-los.
+  
 ## Código Com o Iterator
 
 ```java
@@ -205,7 +204,7 @@ public class Main {
 - **Visitor:** Pode ser combinado ao Iterator para aplicar operações em cada elemento visitado.
 
 ## Conclusão
-O padrão Iterator permite desacoplar a lógica de percorrimento da estrutura dos dados. Ele oferece uma interface uniforme para percorrer diferentes tipos de coleções sem expor sua implementação interna. Embora simples, ele é amplamente utilizado em bibliotecas modernas. Ao promover a separação de responsabilidades, melhora a coesão e reutilização do código, sendo ideal para cenários onde a iteração precisa ser flexível e independente.
+O padrão Iterator é uma solução para percorrer coleções sem precisar conhecer sua estrutura interna. Ele facilita a leitura e manutenção do código ao separar a lógica de iteração da estrutura dos dados. Além disso, permite criar diferentes formas de percorrer uma coleção, até mesmo simultaneamente, sem complicar a implementação.
 
 ## Referências
 GAMMA, Erich; HELM, Richard; JOHNSON, Ralph; VLISSIDES, John. *Padrões de Projeto: Soluções Reutilizáveis de Software Orientado a Objetos*. 1. ed. Porto Alegre: Bookman, 2000.
