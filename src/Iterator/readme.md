@@ -50,25 +50,22 @@ public class Main {
 ```
 
 ## Cenário sem o Iterator
+``` mermaid 
+classDiagram
 
-@startuml
 class ListaNomes {
-  - nomes: String[]
-  - contador: int
-  + adicionar(nome: String): void
-  + imprimirTodos(): void
+  -nomes: String[]
+  -contador: int
+  +adicionar(nome: String): void
+  +imprimirTodos(): void
 }
 
 class Main {
-  + main(args: String[]): void
+  +main(args: String[]): void
 }
 
-Main --> ListaNomes : usa
-
-note right of ListaNomes::imprimirTodos
-  Iteração está acoplada à estrutura
-end note
-@enduml
+Main --> ListaNomes
+```
 
 ## Cenário Com o Iterator
 ``` mermaid 
