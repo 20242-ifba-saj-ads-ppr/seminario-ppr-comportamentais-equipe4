@@ -1,4 +1,4 @@
-package ex2;
+package com;
 
 import java.util.*;
 

@@ -1,16 +1,21 @@
 package com;
+
 public class Main {
     public static void main(String[] args) {
-        ListaNomes lista = new ListaNomes();
-        lista.adicionar("Ana");
-        lista.adicionar("Beatriz");
-        lista.adicionar("Carlos");
-        lista.adicionar("Daniel");
+        CopoComBolinhas copo = new CopoComBolinhas();
+        copo.adicionarBolinha("Vermelha");
+        copo.adicionarBolinha("Azul");
+        copo.adicionarBolinha("Verde");
+        copo.adicionarBolinha("Rosa");
+        copo.adicionarBolinha("Preta");
 
-        Iterator iterador = lista.criarIterator();
 
-        while (iterador.hasNext()) {
-            System.out.println(iterador.next());
+        BolinhaIterator iterator = copo.criarIterator();
+
+        System.out.println("Pegando bolinhas do copo:");
+
+        while (iterator.temProxima()) {
+            System.out.println("Retirou bolinha: " + iterator.proxima());
         }
     }
 }

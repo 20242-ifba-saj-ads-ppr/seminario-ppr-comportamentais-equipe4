@@ -1,4 +1,4 @@
-package ex2;
+package com;
 
 public interface BolinhaIterator {
     boolean temProxima();

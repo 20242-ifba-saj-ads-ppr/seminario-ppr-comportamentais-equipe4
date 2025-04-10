@@ -1,4 +1,4 @@
-package ex2;
+package com;
 
 public class CopoComBolinhas implements ColecaoDeBolinhas {
     private final String[] bolinhas = new String[5];
