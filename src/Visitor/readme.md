@@ -3,16 +3,23 @@
 ### Padrão de Projeto Comportamental
 
 ## Intenção
-Separar a lógica das operações (o que deve ser feito) da estrutura dos objetos (local aonde deve ser feito).
+Descrever uma ação a ser realizada sobre os itens de um conjunto de objetos. O Visitor possibilita estabelecer uma nova funcionalidade sem alterar as classes dos componentes que serão processados.
 
 ## Motivação 
 
 Imagine que você tem uma estrutura de objetos, como elementos de um documento (Texto e Imagem), e precisa realizar várias operações diferentes sobre eles — como imprimir, exportar, validar ou traduzir. Se cada operação for implementada diretamente nessas classes, elas acabam ficando sobrecarregadas e difíceis de manter. O padrão Visitor resolve isso ao permitir que essas operações sejam extraídas para classes separadas (visitantes), mantendo as classes de dados simples e focadas, e facilitando a adição de novas operações sem modificar os elementos existentes.
 
+## Estrutura GOF
+![image](https://github.com/user-attachments/assets/2d6a0438-05e9-4956-9078-752c92173c75)
+
 ## Aplicabilidade 
-Utilize o Padrão Visitor quando:
-- Houver uma estrutura de objetos complexa e precisa realizar operações diferentes sobre ela.
-- Quando as operações tendem a mudar ou crescer com o tempo, mas a estrutura dos objetos permanecer relativamente estável
+Utilize o padrão Visitor nos seguintes cenários:
+
+- Quando uma coleção de objetos possui múltiplas classes com interfaces distintas e você precisa aplicar operações que variam conforme o tipo de cada objeto.
+
+- Diversas operações independentes devem ser realizadas sobre os elementos de uma estrutura, e você quer evitar sobrecarregar suas classes com essas funcionalidades. O Visitor agrupa operações relacionadas em uma única classe visitante, mantendo o código organizado.
+
+- A estrutura de objetos é estável, mas novas operações são frequentemente adicionadas. Se a hierarquia de classes muda constantemente, implementar as operações diretamente nelas pode ser mais eficiente, já que alterações na estrutura exigem ajustes em todos os visitantes.
 
 ## Código sem o Visitor
 
@@ -248,34 +255,26 @@ public class Main {
     }
 }
 ```
+## Colaborações
+- Um código cliente que implementa o Visitor precisa instanciar um VisitanteConcreto e iterar pela estrutura de objetos, aplicando a visita a cada componente
 
+- Durante a visita, cada elemento aciona o método do Visitor correspondente ao seu tipo específico. O elemento se passa como parâmetro para essa chamada, possibilitando ao visitante consultar seus atributos quando requerido
 ## Consequências
 
-### Benefícios:
+## Benefícios
+- **Facilidade para adicionar novas operações:** Com o Visitor, novas funcionalidades podem ser implementadas criando uma nova classe visitante, sem modificar as classes existentes dos elementos. Isso evita alterações em múltiplas classes quando uma nova operação é necessária.
 
-- Facilidade para adicionar novas operações:
-Permite incluir novas funcionalidades apenas criando novas classes visitantes, sem modificar os elementos da estrutura.
+- **Organização de operações relacionadas:** O padrão agrupa comportamentos relacionados em um único visitante, evitando a dispersão de lógica pelas classes da estrutura. Isso melhora a manutenibilidade e a clareza do código.
 
-- Organização e separação de responsabilidades:
-Agrupa operações relacionadas nos visitantes e evita espalhar código pelas classes dos elementos, promovendo melhor manutenção e legibilidade.
+- **Suporte a estruturas heterogêneas:** Diferentemente de um Iterator, o Visitor pode operar sobre objetos de tipos distintos, mesmo que não compartilhem uma hierarquia comum.
 
-- Capacidade de visitar tipos não relacionados:
-Ao contrário de iteradores, o Visitor pode operar sobre objetos que não compartilham uma classe base, aumentando a flexibilidade.
+- **Acúmulo de estado durante a visita:** Visitantes podem armazenar informações enquanto percorrem a estrutura, eliminando a necessidade de variáveis globais ou parâmetros extras.
 
-- Acúmulo de estado durante a visita:
-Visitantes podem manter estados internos enquanto percorrem os elementos, evitando o uso de variáveis globais ou parâmetros adicionais.
+## Desvantagens
+- **Dificuldade para adicionar novos tipos de elementos:** Se a estrutura de objetos cresce frequentemente, cada novo tipo exige a atualização de todos os visitantes existentes, o que pode se tornar trabalhoso.
 
-### Desvantagens:
-- Dificuldade para adicionar novos elementos:
-Toda vez que um novo tipo de elemento é criado, é necessário atualizar todos os visitantes existentes, o que pode ser custoso.
-
-- Indicado quando a estrutura é estável:
-O padrão é mais eficaz quando a estrutura de classes de elementos muda pouco, mas novas operações são constantemente adicionadas.
-
-- Possível violação do encapsulamento:
-Elementos precisam expor parte de seu estado interno para permitir que o visitante execute sua lógica, o que pode comprometer o encapsulamento.
-
-
+- **Possível violação do encapsulamento:** Para que o Visitor funcione, os elementos podem precisar expor métodos públicos que acessem seu estado interno, reduzindo o encapsulamento.
+  
 ## Usos conhecidos
 - Compiladores:
 Muitos compiladores usam o padrão Visitor para percorrer a árvore sintática abstrata (AST) e aplicar diferentes operações como análise semântica, geração de código ou otimizações. Cada operação é encapsulada em um visitante separado.
