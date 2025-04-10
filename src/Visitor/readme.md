@@ -273,11 +273,10 @@ public class Main {
 ## Desvantagens
 - **Dificuldade para adicionar novos tipos de elementos:** Se a estrutura de objetos cresce frequentemente, cada novo tipo exige a atualização de todos os visitantes existentes, o que pode se tornar trabalhoso.
 
-- **Possível violação do encapsulamento:** Para que o Visitor funcione, os elementos podem precisar expor métodos públicos que acessem seu estado interno, reduzindo o encapsulamento.
+- **Violação do encapsulamento:** Para que o Visitor funcione, os elementos podem precisar expor métodos públicos que acessem seu estado interno, reduzindo o encapsulamento.
   
 ## Usos conhecidos
-- Compiladores:
-Muitos compiladores usam o padrão Visitor para percorrer a árvore sintática abstrata (AST) e aplicar diferentes operações como análise semântica, geração de código ou otimizações. Cada operação é encapsulada em um visitante separado.
+- Compiladores: Em compiladores, ele é usado para percorrer árvores de sintaxe abstrata (ASTs) e realizar operações como análise semântica ou geração de código
 
 - Ferramentas de análise de código:
 Ferramentas como linters e formatadores aplicam visitantes para analisar diferentes tipos de nós em estruturas de código-fonte, sem precisar alterar as classes que representam esses nós.
