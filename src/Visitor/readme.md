@@ -6,7 +6,11 @@
 Descrever uma ação a ser realizada sobre os itens de um conjunto de objetos. O Visitor possibilita estabelecer uma nova funcionalidade sem alterar as classes dos componentes que serão processados.
 
 ## Motivação 
-Imagine que você tem uma estrutura de objetos, como elementos de um documento (Texto e Imagem), e precisa realizar várias operações diferentes sobre eles — como imprimir, exportar, validar ou traduzir. Se cada operação for implementada diretamente nessas classes, elas acabam ficando sobrecarregadas e difíceis de manter. O padrão Visitor resolve isso ao permitir que essas operações sejam extraídas para classes separadas (visitantes), mantendo as classes de dados simples e focadas, e facilitando a adição de novas operações sem modificar os elementos existentes.
+Imagine um sistema que lida com produtos  e serviços, onde esses itens precisam ser exibidos e exportados. Inicialmente, as operações de visualização e exportação são implementadas diretamente nas classes Produto e Servico. No entanto, à medida que surgem novas operações ou tipos de elementos, modificar essas classes se torna complicado e arriscado, além de misturar responsabilidades. 
+
+O padrão Visitor resolve isso ao separar as operações da estrutura dos elementos. A interface Visitor define métodos para visitar Produto e Servico, enquanto classes como Visualizador e Exportador encapsulam as operações específicas. As classes Produto e Servico aceitam visitantes, delegando a execução das operações sem precisar alterar suas implementações. 
+
+Com essa abordagem, adicionar novas operações — como gerar relatórios personalizados — é feito criando novos visitantes, sem modificar as classes existentes. O resultado é um sistema modular, flexível e fácil de estender. 
 
 ## Estrutura GOF
 ![image](https://github.com/user-attachments/assets/2d6a0438-05e9-4956-9078-752c92173c75)
@@ -128,10 +132,10 @@ Sistemas que trabalham com documentos compostos por diferentes tipos de elemento
 
 ## Padrões relacionados
 - Composite:
-Visitor é frequentemente usado com o padrão Composite para executar operações sobre uma hierarquia de objetos (como árvores). O visitante percorre a estrutura composta e realiza ações específicas para cada tipo de nó.
+O padrão Composite  organiza objetos em uma estrutura hierárquica (como árvores), enquanto o Visitor  percorre essa estrutura para aplicar operações uniformemente a todos os elementos.
 
 - Interpreter:
-Em interpretadores de linguagens, o Visitor pode ser usado para implementar a lógica de interpretação, onde cada tipo de expressão é visitado e processado de forma distinta.
+O padrão Interpreter define uma gramática para interpretar expressões, e o Visitor  pode ser aplicado para efetuar a interpretação, encapsulando operações sobre a estrutura sintática.
 
 ## Conclusão
 O padrão Visitor é uma ferramenta valiosa para projetar sistemas flexíveis e extensíveis, especialmente quando há uma clara separação entre a estrutura de objetos e os comportamentos que operam sobre ela. Ele promove um design orientado a interfaces, facilitando a adição de novos comportamentos sem comprometer a integridade das classes existentes. No entanto, seu uso deve ser ponderado, pois ele pode introduzir complexidade desnecessária em cenários simples ou dinâmicos.
