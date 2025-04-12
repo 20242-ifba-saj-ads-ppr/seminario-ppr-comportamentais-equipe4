@@ -10,7 +10,7 @@ Imagine um sistema que lida com produtos  e serviços, onde esses itens precisam
 
 O padrão Visitor resolve isso ao separar as operações da estrutura dos elementos. A interface Visitor define métodos para visitar Produto e Servico, enquanto classes como Visualizador e Exportador encapsulam as operações específicas. As classes Produto e Servico aceitam visitantes, delegando a execução das operações sem precisar alterar suas implementações. 
 
-Com essa abordagem, adicionar novas operações — como gerar relatórios personalizados — é feito criando novos visitantes, sem modificar as classes existentes. O resultado é um sistema modular, flexível e fácil de estender. 
+Com essa abordagem, adicionar novas operações, como gerar relatórios personalizados é feito criando novos visitantes, sem modificar as classes existentes. O resultado é um sistema modular, flexível e fácil de estender. 
 
 ## Estrutura GOF
 ![image](https://github.com/user-attachments/assets/2d6a0438-05e9-4956-9078-752c92173c75)
