@@ -134,10 +134,136 @@ classDiagram
 ## Código Com o Visitor
 
 ```java
+public interface Elemento {
+    void aceitar(Visitor visitante);
+}
+
+```
+
+```java
+public class Produto implements Elemento {
+    private String nome = "Produto A";
+    private double preco = 100;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public double getPreco(){
+        return preco;
+    }
+
+    public void exibirDetalhes() {
+        System.out.println("Exibindo detalhes do produto: " + nome);
+    }
+
+    @Override
+    public void aceitar(Visitor visitante) {
+        visitante.visitar(this);
+    }
+}
+
+```
+```java
+public class Servico implements Elemento {
+    private String descricao = "servico basico";
+    private int duracaoHoras = 5;
+
+ 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public int getDuracaoHoras() {
+        return duracaoHoras;
+    }
+
+    public void executar() {
+        System.out.println("Executando serviço: " + descricao);
+    }
+
+    @Override
+    public void aceitar(Visitor visitante) {
+        visitante.visitar(this);
+    }
+}
+```
+
+```java
 public interface Visitor {
     void visitar(Produto produto);
     void visitar(Servico servico);
 }
+```
+
+```java
+public class VisitorExportacao implements Visitor {
+    @Override
+    public void visitar(Produto produto) {
+        System.out.println("Exportador está exportando produto: " + produto.getNome());
+        System.out.println("Preço: " + produto.getPreco());
+    }
+
+    @Override
+    public void visitar(Servico servico) {
+        System.out.println("Exportador está exportando serviço: " + servico.getDescricao());
+        System.out.println("Duração: " + servico.getDuracaoHoras() + " horas");
+    }
+}
+```
+```java
+public class VisitorVisualizacao implements Visitor {
+    @Override
+    public void visitar(Produto produto) {
+        System.out.println("Visualizador está exibindo produto: " + produto.getNome());
+        produto.exibirDetalhes();
+    }
+
+    @Override
+    public void visitar(Servico servico) {
+        System.out.println("Visualizador está exibindo serviço: " + servico.getDescricao());
+        servico.executar();
+    }
+```
+
+```java
+public class EstruturaObjeto {
+    private List<Elemento> elementos = new ArrayList<>();
+
+    public void addElemento(Elemento elemento) {
+        elementos.add(elemento);
+    }
+
+    public void removeElemento(Elemento elemento) {
+        elementos.remove(elemento);
+    }
+
+    public void aceitar(Visitor visitante) {
+        for (Elemento elemento : elementos) {
+            elemento.aceitar(visitante);
+        }
+    }
+}
+```
+
+```java
+public class DemoPadraoVisitor {
+    public static void main(String[] args) {
+        EstruturaObjeto estruturaObj = new EstruturaObjeto();
+        estruturaObj.addElemento(new Produto());
+        estruturaObj.addElemento(new Servico());
+
+        VisitorVisualizacao visitorVisualizacao = new VisitorVisualizacao();
+        VisitorExportacao visitorExportacao = new VisitorExportacao();
+
+        System.out.println("Aplicando o VisitorVisualizacao:");
+        estruturaObj.aceitar(visitorVisualizacao);
+
+        System.out.println("\nAplicando o VisitorExportacao:");
+        estruturaObj.aceitar(visitorExportacao);
+    }
+}
+
 ```
 ## Colaborações
 - Um código cliente que implementa o Visitor precisa instanciar um VisitanteConcreto e iterar pela estrutura de objetos, aplicando a visita a cada componente
