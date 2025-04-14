@@ -159,11 +159,9 @@ public interface Visitor {
 
 - **Violação do encapsulamento:** Para que o Visitor funcione, os elementos podem precisar expor métodos públicos que acessem seu estado interno, reduzindo o encapsulamento.
   
-## Usos conhecidos
-- Compiladores: Em compiladores, ele é usado para percorrer árvores de sintaxe abstrata (ASTs) e realizar operações como análise semântica ou geração de código
+## Usos conhecidoS
 
-- Ferramentas de análise de código:
-Ferramentas como linters e formatadores aplicam visitantes para analisar diferentes tipos de nós em estruturas de código-fonte, sem precisar alterar as classes que representam esses nós.
+- IRIS Inventor(Open Inventor): É um kit de ferramentas para o desenvolvimento de aplicações gráficas 3D.
 
 - Aplicações com documentos estruturados:
 Sistemas que trabalham com documentos compostos por diferentes tipos de elementos (como texto, imagens e tabelas) utilizam Visitor para aplicar funcionalidades como exportação, renderização ou verificação em cada tipo de elemento.
