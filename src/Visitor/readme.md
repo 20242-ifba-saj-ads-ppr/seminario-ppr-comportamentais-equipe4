@@ -126,7 +126,7 @@ classDiagram
 
 - **Element (Elemento):** Declara aceitar(Visitor) para permitir a visita.
 
-- **ConcreteElemen(Produto, Servico):** Implementam aceitar(Visitor) chamando visitar(this), delegando a ação ao visitante.
+- **ConcreteElement(Produto, Servico):** Implementam aceitar(Visitor) chamando visitar(this), delegando a ação ao visitante.
 
 - **ObjectStructure(EstruturaObjeto):** Armazena elementos (Produto, Servico) e aplica visitantes a todos via aceitar(Visitor)
 
