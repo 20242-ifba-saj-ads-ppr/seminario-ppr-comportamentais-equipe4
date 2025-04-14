@@ -59,56 +59,6 @@ public class Main {
 }
 ```
 
-## Cenário sem o Iterator
-``` mermaid 
-classDiagram
-
-class ListaNomes {
-  -nomes: String[]
-  -contador: int
-  +adicionar(nome: String): void
-  +imprimirTodos(): void
-}
-
-class Main {
-  +main(args: String[]): void
-}
-
-Main --> ListaNomes
-```
-
-## Cenário Com o Iterator
-``` mermaid 
-classDiagram
-    class Iterator {
-        +hasNext(): boolean
-        +next(): Object
-    }
-
-    class IterableCollection {
-        +criarIterator(): Iterator
-    }
-
-    class ListaNomes {
-        -nomes: String[]
-        -contador: int
-        +adicionar(nome: String): void
-        +criarIterator(): Iterator
-    }
-
-    class ListaNomesIterator {
-        -lista: ListaNomes
-        -posicao: int
-        +hasNext(): boolean
-        +next(): Object
-    }
-
-    ListaNomes --> IterableCollection
-    ListaNomesIterator ..|> Iterator
-    ListaNomes --> ListaNomesIterator
-```
-
-  
 ## Código Com o Iterator
 
 ```java
@@ -178,6 +128,58 @@ public class Main {
     }
 }
 ```
+
+## Cenário sem o Iterator
+``` mermaid 
+classDiagram
+
+class ListaNomes {
+  -nomes: String[]
+  -contador: int
+  +adicionar(nome: String): void
+  +imprimirTodos(): void
+}
+
+class Main {
+  +main(args: String[]): void
+}
+
+Main --> ListaNomes
+```
+
+## Cenário Com o Iterator
+``` mermaid 
+classDiagram
+    class Iterator {
+        +hasNext(): boolean
+        +next(): Object
+    }
+
+    class IterableCollection {
+        +criarIterator(): Iterator
+    }
+
+    class ListaNomes {
+        -nomes: String[]
+        -contador: int
+        +adicionar(nome: String): void
+        +criarIterator(): Iterator
+    }
+
+    class ListaNomesIterator {
+        -lista: ListaNomes
+        -posicao: int
+        +hasNext(): boolean
+        +next(): Object
+    }
+
+    ListaNomes --> IterableCollection
+    ListaNomesIterator ..|> Iterator
+    ListaNomes --> ListaNomesIterator
+```
+
+  
+
 
 ## Consequências
 
