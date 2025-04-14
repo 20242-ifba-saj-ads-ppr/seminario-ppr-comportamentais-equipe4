@@ -1,15 +1,13 @@
 @startuml
 title Cenário com Iterator
 
-interface Iterador<T> {
-  + primeiro(): void
-  + proximo(): void
-  + acabou(): boolean
-  + itemAtual(): T
+interface Iterador {
+  + hasNext(): boolean
+  + next(): 
 }
 
-interface Agregado<T> {
-  + criarIterador(): Iterador<T>
+interface Agregado {
+  + criarIterador(): Iterador
 }
 
 class Trabalhador {
@@ -28,10 +26,8 @@ class ListaTrabalhadores implements Agregado<Trabalhador> {
 class IteradorTrabalhadores implements Iterador<Trabalhador> {
   - lista: ListaTrabalhadores
   - atual: int
-  + primeiro(): void
-  + proximo(): void
-  + acabou(): boolean
-  + itemAtual(): Trabalhador
+  + hasNext(): boolean
+  + next(): Trabalhador
 }
 
 class Main {
@@ -44,5 +40,4 @@ ListaTrabalhadores --> Trabalhador : contém
 ListaTrabalhadores --> IteradorTrabalhadores : cria
 IteradorTrabalhadores --> ListaTrabalhadores : itera
 Main --> Iterador : usa
-
 @enduml

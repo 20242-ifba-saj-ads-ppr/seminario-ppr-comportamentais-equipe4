@@ -209,10 +209,8 @@ classDiagram
 
 classDiagram
     class Iterador~T~ {
-        + primeiro()
-        + proximo()
-        + acabou(): boolean
-        + itemAtual(): T
+        + hasNext(): boolean
+        + next(): T
     }
 
     class Agregado~T~ {
@@ -235,10 +233,8 @@ classDiagram
     class IteradorTrabalhadores {
         - ListaTrabalhadores lista
         - int atual
-        + primeiro()
-        + proximo()
-        + acabou(): boolean
-        + itemAtual(): Trabalhador
+        + hasNext(): boolean
+        + next(): Trabalhador
     }
 
     class Main {
@@ -253,6 +249,7 @@ classDiagram
     IteradorTrabalhadores --> ListaTrabalhadores : itera
     Main --> Agregado~Trabalhador~ : usa
     Main --> Iterador~Trabalhador~ : usa
+
 
 ```
 
