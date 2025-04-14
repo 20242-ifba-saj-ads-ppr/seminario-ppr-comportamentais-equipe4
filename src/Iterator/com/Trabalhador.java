@@ -10,4 +10,7 @@ public class Trabalhador {
     public void imprimir() {
         System.out.println("Trabalhador: " + nome);
     }
+        public String getNome() {
+        return nome;
+    }
 }
