@@ -1,28 +1,48 @@
 @startuml
-interface Iterator {
-  + hasNext(): boolean
-  + next(): Object
+title Cenário com Iterator
+
+interface Iterador<T> {
+  + primeiro(): void
+  + proximo(): void
+  + acabou(): boolean
+  + itemAtual(): T
 }
 
-interface IterableCollection {
-  + criarIterator(): Iterator
+interface Agregado<T> {
+  + criarIterador(): Iterador<T>
 }
 
-class ListaNomes implements IterableCollection {
-  - nomes: String[]
-  - contador: int
-  + adicionar(nome: String): void
-  + criarIterator(): Iterator
+class Trabalhador {
+  - nome: String
+  + imprimir(): void
 }
 
-class ListaNomesIterator implements Iterator {
-  - lista: ListaNomes
-  - posicao: int
-  + hasNext(): boolean
-  + next(): Object
+class ListaTrabalhadores implements Agregado<Trabalhador> {
+  - trabalhadores: List<Trabalhador>
+  + adicionar(Trabalhador): void
+  + obter(int): Trabalhador
+  + contar(): int
+  + criarIterador(): Iterador<Trabalhador>
 }
 
-ListaNomes --> IterableCollection
-ListaNomesIterator ..|> Iterator
-ListaNomes --> ListaNomesIterator : cria
+class IteradorTrabalhadores implements Iterador<Trabalhador> {
+  - lista: ListaTrabalhadores
+  - atual: int
+  + primeiro(): void
+  + proximo(): void
+  + acabou(): boolean
+  + itemAtual(): Trabalhador
+}
+
+class Main {
+  + main(String[]): void
+  + imprimirTrabalhadores(Iterador<Trabalhador>): void
+}
+
+Main --> Agregado : usa
+ListaTrabalhadores --> Trabalhador : contém
+ListaTrabalhadores --> IteradorTrabalhadores : cria
+IteradorTrabalhadores --> ListaTrabalhadores : itera
+Main --> Iterador : usa
+
 @enduml

@@ -2,11 +2,12 @@ package sem;
 
 public class Main {
     public static void main(String[] args) {
-        ListaNomes lista = new ListaNomes();
-        lista.adicionar("Ana");
-        lista.adicionar("Beatriz");
-        lista.adicionar("Carlos");
-        lista.adicionar("Daniel");
+        ListaTrabalhadores lista = new ListaTrabalhadores();
+        lista.adicionar(new Trabalhador("Ana"));
+        lista.adicionar(new Trabalhador("Bruna"));
+        lista.adicionar(new Trabalhador("Carlos"));
+        lista.adicionar(new Trabalhador("Daniel"));
+        
         lista.imprimirTodos();
     }
 }

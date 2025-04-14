@@ -1,18 +1,24 @@
 @startuml
-class ListaNomes {
-  - nomes: String[]
-  - contador: int
-  + adicionar(nome: String): void
+title Cenário sem Iterator
+
+class Trabalhador {
+  - nome: String
+  + imprimir(): void
+}
+
+class ListaTrabalhadores {
+  - trabalhadores: List<Trabalhador>
+  + adicionar(Trabalhador): void
+  + obter(int): Trabalhador
+  + contar(): int
   + imprimirTodos(): void
 }
 
 class Main {
-  + main(args: String[]): void
+  + main(String[]): void
 }
 
-Main --> ListaNomes : usa
+Main --> ListaTrabalhadores : usa
+ListaTrabalhadores --> Trabalhador : contém
 
-note right of ListaNomes::imprimirTodos
-  Iteração está acoplada à estrutura
-end note
 @enduml
