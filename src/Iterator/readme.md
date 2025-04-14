@@ -6,21 +6,28 @@
 ## Intenção
 Fornecer uma maneira de acessar sequencialmente os elementos de um objeto agregado sem expor sua representação subjacente.
 
-## Também conhecido como
-Cursor
-
 ## Motivação
-Em estruturas de coleção como listas, vetores ou árvores, é comum a necessidade de acessar seus elementos sequencialmente, sem se preocupar com os detalhes de sua implementação interna.
-No entanto, quando a lógica de iteração está acoplada diretamente à estrutura da coleção, o código tende a se tornar rígido, difícil de manter e pouco reutilizável.
-O padrão Iterator permite alcançar essa separação de responsabilidades. A ideia central é transferir a lógica de acesso e percurso da coleção para um objeto iterador.
-A classe Iterator define uma interface para acessar os elementos da coleção sequencialmente, sem expor sua estrutura interna. O iterador é responsável por controlar a posição atual, sabendo quais elementos já foram visitados e quais ainda restam
+
+Objetos agregados, tais como listas, devem fornecer alguma forma de acessar seus elementos sem que sua estrutura interna seja exposta. Sendo necessário muitas vezes que os dados sejam percorridos de formas diferentes, mas não se deseja inflar a interface da coleção com múltiplos métodos para isso.  
+Este padrão transfere a responsabilidade da navegação para um objeto à parte, o Iterador. Este, por sua vez, define uma interface padronizada para acessar os elementos sequencialmente, mantendo internamente o estado do percurso.
+Permitindo dessa forma qque diferentes políticas de navegação sem alterar a estrutura do agregado.
 
 ## Aplicabilidade
-Use o padrão Iterator quando:
 
-- permitir a navegação pelos elementos de uma coleção sem revelar sua estrutura interna.
-- possibilitar diferentes formas de percorrer os elementos de uma coleção.
-- oferecer uma interface padronizada que permita iterar sobre diversas estruturas de dados, promovendo o uso polimórfico da iteração.
+- Para acessar os conteúdos de um objeto agregado sem que representação externa seja exposta.
+- Para possibilitar formas diferentes de percorrer dados (objetos agregados).
+- Para fornecer uma interface uniforme para percorrer diferentes tipos de coleções.
+
+## Estrutura GOF
+![image](https://github.com/user-attachments/assets/2b88b194-a588-43e2-82bb-1fc7f90405a8)
+
+## Participantes
+
+- **Iterator (Iterator):** Define a interface com os métodos para percorrer elementos de uma coleção (hasNext, next).
+- **ConcreteIterator (ListaNomesIterator):** Implementa a interface Iterator e mantém o controle da posição atual na coleção.
+- **Aggregate (IterableCollection):** Define uma interface para criar um objeto Iterator.
+- **ConcreteAggregate (ListaNomes):** Implementa a interface de agregação, armazena os dados (nomes) e fornece um iterador para percorrê-los.
+
 
 ## Código sem o Iterator
 
@@ -33,7 +40,7 @@ public class ListaNomes {
         nomes[contador++] = nome;
     }
 
-    public void imprimirTodos() {
+    public void imprimirTodos() { 
         for (int i = 0; i < contador; i++) {
             System.out.println(nomes[i]);
         }
@@ -100,15 +107,7 @@ classDiagram
     ListaNomesIterator ..|> Iterator
     ListaNomes --> ListaNomesIterator
 ```
-## Estrutura GOF
-![image](https://github.com/user-attachments/assets/2b88b194-a588-43e2-82bb-1fc7f90405a8)
 
-## Participantes
-
-- **Iterator (Iterator):** Define a interface com os métodos para percorrer elementos de uma coleção (hasNext, next).
-- **ConcreteIterator (ListaNomesIterator):** Implementa a interface Iterator e mantém o controle da posição atual na coleção.
-- **Aggregate (IterableCollection):** Define uma interface para criar um objeto Iterator.
-- **ConcreteAggregate (ListaNomes):** Implementa a interface de agregação, armazena os dados (nomes) e fornece um iterador para percorrê-los.
   
 ## Código Com o Iterator
 
