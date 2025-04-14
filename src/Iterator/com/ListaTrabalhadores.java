@@ -1,8 +1,8 @@
 package com;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
 
 public class ListaTrabalhadores implements Agregado<Trabalhador> {
     private List<Trabalhador> trabalhadores = new ArrayList<>();
@@ -20,7 +20,7 @@ public class ListaTrabalhadores implements Agregado<Trabalhador> {
     }
 
     @Override
-    public Iterador<Trabalhador> criarIterador() {
+    public Iterator<Trabalhador> criarIterador() {
         return new IteradorTrabalhadores(this);
     }
 }

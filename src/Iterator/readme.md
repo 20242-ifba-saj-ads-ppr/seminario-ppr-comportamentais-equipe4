@@ -24,9 +24,9 @@ Permitindo dessa forma qque diferentes políticas de navegação sem alterar a e
 ## Participantes
 
 - **Iterator (Iterator):** Define a interface com os métodos para percorrer elementos de uma coleção (hasNext, next).
-- **ConcreteIterator (ListaNomesIterator):** Implementa a interface Iterator e mantém o controle da posição atual na coleção.
-- **Aggregate (IterableCollection):** Define uma interface para criar um objeto Iterator.
-- **ConcreteAggregate (ListaNomes):** Implementa a interface de agregação, armazena os dados (nomes) e fornece um iterador para percorrê-los.
+- **ConcreteIterator (IteradorTrabalhadores):** Implementa a interface Iterator e mantém o controle da posição atual na coleção.
+- **Aggregate (Agregado):** Define uma interface para criar um objeto Iterator.
+- **ConcreteAggregate (ListaTrabalhadores):** Implementa a interface de agregação, armazena os dados (nomes) e fornece um iterador para percorrê-los.
 
 
 ## Código sem o Iterator
@@ -88,22 +88,15 @@ public class Main {
 ## Código Com o Iterator
 
 ```java
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Iterator;
 
 public interface Agregado<T> {
     Iterador<T> criarIterador();
 }
 
-interface Iterador<T> {
-    void primeiro();
-    void proximo();
-    boolean acabou();
-    T itemAtual();
-}
+import java.util.Iterator;
 
-public class IteradorTrabalhadores implements Iterador<Trabalhador> {
+public class IteradorTrabalhadores implements Iterator<Trabalhador> {
     private ListaTrabalhadores lista;
     private int atual = 0;
 
@@ -112,29 +105,19 @@ public class IteradorTrabalhadores implements Iterador<Trabalhador> {
     }
 
     @Override
-    public void primeiro() {
-        atual = 0;
+    public boolean hasNext() {
+        return atual < lista.contar();
     }
 
     @Override
-    public void proximo() {
-        atual++;
-    }
-
-    @Override
-    public boolean acabou() {
-        return atual >= lista.contar();
-    }
-
-    @Override
-    public Trabalhador itemAtual() {
-        if (acabou()) {
-            throw new IllegalStateException("Iterador fora dos limites.");
-        }
-        return lista.obter(atual);
+    public Trabalhador next() {
+        return lista.obter(atual++);
     }
 }
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class ListaTrabalhadores implements Agregado<Trabalhador> {
     private List<Trabalhador> trabalhadores = new ArrayList<>();
@@ -152,15 +135,19 @@ public class ListaTrabalhadores implements Agregado<Trabalhador> {
     }
 
     @Override
-    public Iterador<Trabalhador> criarIterador() {
+    public Iterator<Trabalhador> criarIterador() {
         return new IteradorTrabalhadores(this);
     }
 }
 
+import java.util.Iterator;
+
 public class Main {
-    public static void imprimirTrabalhadores(Iterador<Trabalhador> iterador) {
-        for (iterador.primeiro(); !iterador.acabou(); iterador.proximo()) {
-            iterador.itemAtual().imprimir();
+
+    public static void imprimirTrabalhadores(Iterator<Trabalhador> iterador) {
+        while (iterador.hasNext()) {
+            Trabalhador t = iterador.next();
+            t.imprimir();
         }
     }
 
@@ -171,10 +158,11 @@ public class Main {
         lista.adicionar(new Trabalhador("Carlos"));
         lista.adicionar(new Trabalhador("Daniel"));
 
-        Iterador<Trabalhador> iterador = lista.criarIterador();
+        Iterator<Trabalhador> iterador = lista.criarIterador();
         imprimirTrabalhadores(iterador);
     }
 }
+
 
 public class Trabalhador {
     private String nome;
@@ -187,6 +175,7 @@ public class Trabalhador {
         System.out.println("Trabalhador: " + nome);
     }
 }
+
 
 ```
 

@@ -1,9 +1,13 @@
 package com;
 
+import java.util.Iterator;
+
 public class Main {
-    public static void imprimirTrabalhadores(Iterador<Trabalhador> iterador) {
-        for (iterador.primeiro(); !iterador.acabou(); iterador.proximo()) {
-            iterador.itemAtual().imprimir();
+
+    public static void imprimirTrabalhadores(Iterator<Trabalhador> iterador) {
+        while (iterador.hasNext()) {
+            Trabalhador t = iterador.next();
+            t.imprimir();
         }
     }
 
@@ -14,7 +18,7 @@ public class Main {
         lista.adicionar(new Trabalhador("Carlos"));
         lista.adicionar(new Trabalhador("Daniel"));
 
-        Iterador<Trabalhador> iterador = lista.criarIterador();
+        Iterator<Trabalhador> iterador = lista.criarIterador();
         imprimirTrabalhadores(iterador);
     }
 }

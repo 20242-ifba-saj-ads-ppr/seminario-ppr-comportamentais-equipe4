@@ -1,6 +1,8 @@
 package com;
 
-public class IteradorTrabalhadores implements Iterador<Trabalhador> {
+import java.util.Iterator;
+
+public class IteradorTrabalhadores implements Iterator<Trabalhador> {
     private ListaTrabalhadores lista;
     private int atual = 0;
 
@@ -9,25 +11,12 @@ public class IteradorTrabalhadores implements Iterador<Trabalhador> {
     }
 
     @Override
-    public void primeiro() {
-        atual = 0;
+    public boolean hasNext() {
+        return atual < lista.contar();
     }
 
     @Override
-    public void proximo() {
-        atual++;
-    }
-
-    @Override
-    public boolean acabou() {
-        return atual >= lista.contar();
-    }
-
-    @Override
-    public Trabalhador itemAtual() {
-        if (acabou()) {
-            throw new IllegalStateException("Iterador fora dos limites.");
-        }
-        return lista.obter(atual);
+    public Trabalhador next() {
+        return lista.obter(atual++);
     }
 }
