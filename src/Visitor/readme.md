@@ -161,8 +161,7 @@ public interface Visitor {
   
 ## Usos conhecidoS
 
-- IRIS Inventor(Open Inventor): É um kit de ferramentas para o desenvolvimento de aplicações gráficas 3D.
-
+- IRIS Inventor(Open Inventor): Toolkit gráfico 3D que usa visitantes ("actions") para operações como rendering, tratamento de eventos e buscas.
 - Aplicações com documentos estruturados:
 Sistemas que trabalham com documentos compostos por diferentes tipos de elementos (como texto, imagens e tabelas) utilizam Visitor para aplicar funcionalidades como exportação, renderização ou verificação em cada tipo de elemento.
 
