@@ -14,7 +14,7 @@ Permitindo dessa forma qque diferentes políticas de navegação sem alterar a e
 
 ## Aplicabilidade
 
-- Para acessar os conteúdos de um objeto agregado sem que representação externa seja exposta.
+- Para acessar os conteúdos de um objeto agregado sem que representação interna seja exposta.
 - Para possibilitar formas diferentes de percorrer dados (objetos agregados).
 - Para fornecer uma interface uniforme para percorrer diferentes tipos de coleções.
 
