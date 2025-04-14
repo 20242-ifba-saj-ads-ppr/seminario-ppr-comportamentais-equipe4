@@ -24,6 +24,44 @@ Utilize o padrão Visitor nos seguintes cenários:
 
 - A estrutura de objetos é estável, mas novas operações são frequentemente adicionadas. Se a hierarquia de classes muda constantemente, implementar as operações diretamente nelas pode ser mais eficiente, já que alterações na estrutura exigem ajustes em todos os visitantes.
 
+## Cenário Sem o Visitor
+```mermaid
+classDiagram
+    class EstruturaObjeto {
+        -produtos: List~Produto~
+        -servicos: List~Servico~
+        +addProduto(Produto produto)
+        +addServico(Servico servico)
+        +removeProduto(Produto produto)
+        +removeServico(Servico servico)
+        +visualizarElementos()
+        +exportarElementos()
+    }
+
+    class Produto {
+        -nome: String
+        -preco: double
+        +getNome() String
+        +getPreco() double
+        +exibirDetalhes()
+        +visualizar()
+        +exportar()
+    }
+
+    class Servico {
+        -descricao: String
+        -duracaoHoras: int
+        +getDescricao() String
+        +getDuracaoHoras() int
+        +exibirDetalhes()
+        +visualizar()
+        +exportar()
+    }
+
+    EstruturaObjeto o--> "*" Produto
+    EstruturaObjeto o--> "*" Servico
+```
+
 ## Cenário Com o Visitor
 ```mermaid
 classDiagram
