@@ -32,150 +32,239 @@ Permitindo dessa forma qque diferentes políticas de navegação sem alterar a e
 ## Código sem o Iterator
 
 ```java
-public class ListaNomes {
-    private String[] nomes = new String[10];
-    private int contador = 0;
 
-    public void adicionar(String nome) {
-        nomes[contador++] = nome;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Trabalhador {
+    private String nome;
+    
+    public Trabalhador(String nome) {
+        this.nome = nome;
     }
 
-    public void imprimirTodos() { 
-        for (int i = 0; i < contador; i++) {
-            System.out.println(nomes[i]);
+    public void imprimir() {
+        System.out.println("Trabalhador: " + nome);
+    }
+}
+
+public class ListaTrabalhadores {
+    private List<Trabalhador> trabalhadores = new ArrayList<>();
+
+    public void adicionar(Trabalhador trabalhador) {
+        trabalhadores.add(trabalhador);
+    }
+
+    public Trabalhador obter(int indice) {
+        return trabalhadores.get(indice);
+    }
+
+    public int contar() {
+        return trabalhadores.size();
+    }
+
+    public void imprimirTodos() {
+        for (int i = 0; i < contar(); i++) {
+            trabalhadores.get(i).imprimir();
         }
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        ListaNomes lista = new ListaNomes();
-        lista.adicionar("Ana");
-        lista.adicionar("Beatriz");
-        lista.adicionar("Carlos");
-        lista.adicionar("Daniel");
+        ListaTrabalhadores lista = new ListaTrabalhadores();
+        lista.adicionar(new Trabalhador("Ana"));
+        lista.adicionar(new Trabalhador("Bruna"));
+        lista.adicionar(new Trabalhador("Carlos"));
+        lista.adicionar(new Trabalhador("Daniel"));
+
+        
         lista.imprimirTodos();
     }
 }
+
 ```
 
 ## Código Com o Iterator
 
 ```java
-public interface Iterator {
-    boolean hasNext();
-    Object next();
+import java.util.ArrayList;
+import java.util.List;
+
+
+public interface Agregado<T> {
+    Iterador<T> criarIterador();
 }
 
-public interface IterableCollection {
-    Iterator criarIterator();
+interface Iterador<T> {
+    void primeiro();
+    void proximo();
+    boolean acabou();
+    T itemAtual();
 }
 
-public class ListaNomes implements IterableCollection {
-    private String[] nomes = new String[10];
-    private int contador = 0;
+public class IteradorTrabalhadores implements Iterador<Trabalhador> {
+    private ListaTrabalhadores lista;
+    private int atual = 0;
 
-    public void adicionar(String nome) {
-        nomes[contador++] = nome;
-    }
-
-    public String get(int index) {
-        return nomes[index];
-    }
-
-    public int tamanho() {
-        return contador;
-    }
-
-    @Override
-    public Iterator criarIterator() {
-        return new ListaNomesIterator(this);
-    }
-}
-
-public class ListaNomesIterator implements Iterator {
-    private ListaNomes lista;
-    private int posicao = 0;
-
-    public ListaNomesIterator(ListaNomes lista) {
+    public IteradorTrabalhadores(ListaTrabalhadores lista) {
         this.lista = lista;
     }
 
     @Override
-    public boolean hasNext() {
-        return posicao < lista.tamanho();
+    public void primeiro() {
+        atual = 0;
     }
 
     @Override
-    public Object next() {
-        return lista.get(posicao++);
+    public void proximo() {
+        atual++;
+    }
+
+    @Override
+    public boolean acabou() {
+        return atual >= lista.contar();
+    }
+
+    @Override
+    public Trabalhador itemAtual() {
+        if (acabou()) {
+            throw new IllegalStateException("Iterador fora dos limites.");
+        }
+        return lista.obter(atual);
+    }
+}
+
+
+public class ListaTrabalhadores implements Agregado<Trabalhador> {
+    private List<Trabalhador> trabalhadores = new ArrayList<>();
+
+    public void adicionar(Trabalhador trabalhador) {
+        trabalhadores.add(trabalhador);
+    }
+
+    public Trabalhador obter(int indice) {
+        return trabalhadores.get(indice);
+    }
+
+    public int contar() {
+        return trabalhadores.size();
+    }
+
+    @Override
+    public Iterador<Trabalhador> criarIterador() {
+        return new IteradorTrabalhadores(this);
     }
 }
 
 public class Main {
-    public static void main(String[] args) {
-        ListaNomes lista = new ListaNomes();
-        lista.adicionar("Ana");
-        lista.adicionar("Beatriz");
-        lista.adicionar("Carlos");
-        lista.adicionar("Daniel");
-
-        Iterator iterador = lista.criarIterator();
-
-        while (iterador.hasNext()) {
-            System.out.println(iterador.next());
+    public static void imprimirTrabalhadores(Iterador<Trabalhador> iterador) {
+        for (iterador.primeiro(); !iterador.acabou(); iterador.proximo()) {
+            iterador.itemAtual().imprimir();
         }
     }
+
+    public static void main(String[] args) {
+        ListaTrabalhadores lista = new ListaTrabalhadores();
+        lista.adicionar(new Trabalhador("Ana"));
+        lista.adicionar(new Trabalhador("Bruna"));
+        lista.adicionar(new Trabalhador("Carlos"));
+        lista.adicionar(new Trabalhador("Daniel"));
+
+        Iterador<Trabalhador> iterador = lista.criarIterador();
+        imprimirTrabalhadores(iterador);
+    }
 }
+
+public class Trabalhador {
+    private String nome;
+    
+    public Trabalhador(String nome) {
+        this.nome = nome;
+    }
+
+    public void imprimir() {
+        System.out.println("Trabalhador: " + nome);
+    }
+}
+
 ```
 
 ## Cenário sem o Iterator
 ``` mermaid 
 classDiagram
+    class Trabalhador {
+        - String nome
+        + imprimir()
+    }
 
-class ListaNomes {
-  -nomes: String[]
-  -contador: int
-  +adicionar(nome: String): void
-  +imprimirTodos(): void
-}
+    class ListaTrabalhadores {
+        - List~Trabalhador~ trabalhadores
+        + adicionar(Trabalhador)
+        + obter(int): Trabalhador
+        + contar(): int
+        + imprimirTodos()
+    }
 
-class Main {
-  +main(args: String[]): void
-}
+    class Main {
+        + main(String[])
+    }
 
-Main --> ListaNomes
+    Main --> ListaTrabalhadores : usa
+    ListaTrabalhadores --> Trabalhador : contém
+
 ```
 
 ## Cenário Com o Iterator
 ``` mermaid 
+
 classDiagram
-    class Iterator {
-        +hasNext(): boolean
-        +next(): Object
+    class Iterador~T~ {
+        + primeiro()
+        + proximo()
+        + acabou(): boolean
+        + itemAtual(): T
     }
 
-    class IterableCollection {
-        +criarIterator(): Iterator
+    class Agregado~T~ {
+        + criarIterador(): Iterador~T~
     }
 
-    class ListaNomes {
-        -nomes: String[]
-        -contador: int
-        +adicionar(nome: String): void
-        +criarIterator(): Iterator
+    class Trabalhador {
+        - String nome
+        + imprimir()
     }
 
-    class ListaNomesIterator {
-        -lista: ListaNomes
-        -posicao: int
-        +hasNext(): boolean
-        +next(): Object
+    class ListaTrabalhadores {
+        - List~Trabalhador~ trabalhadores
+        + adicionar(Trabalhador)
+        + obter(int): Trabalhador
+        + contar(): int
+        + criarIterador(): Iterador~Trabalhador~
     }
 
-    ListaNomes --> IterableCollection
-    ListaNomesIterator ..|> Iterator
-    ListaNomes --> ListaNomesIterator
+    class IteradorTrabalhadores {
+        - ListaTrabalhadores lista
+        - int atual
+        + primeiro()
+        + proximo()
+        + acabou(): boolean
+        + itemAtual(): Trabalhador
+    }
+
+    class Main {
+        + main(String[])
+        + imprimirTrabalhadores(Iterador~Trabalhador~)
+    }
+
+    ListaTrabalhadores --> Trabalhador : contém
+    ListaTrabalhadores ..|> Agregado~Trabalhador~
+    IteradorTrabalhadores ..|> Iterador~Trabalhador~
+    ListaTrabalhadores --> IteradorTrabalhadores : cria
+    IteradorTrabalhadores --> ListaTrabalhadores : itera
+    Main --> Agregado~Trabalhador~ : usa
+    Main --> Iterador~Trabalhador~ : usa
+
 ```
 
   
