@@ -28,7 +28,82 @@ Permitindo dessa forma qque diferentes políticas de navegação sem alterar a e
 - **Aggregate (Agregado):** Define uma interface para criar um objeto Iterator.
 - **ConcreteAggregate (ListaTrabalhadores):** Implementa a interface de agregação, armazena os dados (nomes) e fornece um iterador para percorrê-los.
 
+## Cenário sem o Iterator
+``` mermaid 
+classDiagram
+    class Trabalhador {
+        - String nome
+        + imprimir()
+    }
 
+    class ListaTrabalhadores {
+        - List~Trabalhador~ trabalhadores
+        + adicionar(Trabalhador)
+        + obter(int): Trabalhador
+        + contar(): int
+        + imprimirTodos()
+    }
+
+    class Main {
+        + main(String[])
+    }
+
+    Main --> ListaTrabalhadores : usa
+    ListaTrabalhadores --> Trabalhador : contém
+
+```
+
+
+## Cenário Com o Iterator
+``` mermaid 
+
+classDiagram
+    class Iterador~T~ {
+        + hasNext(): boolean
+        + next(): T
+    }
+
+    class Agregado~T~ {
+        + criarIterador(): Iterador~T~
+    }
+
+    class Trabalhador {
+        - String nome
+        + imprimir()
+    }
+
+    class ListaTrabalhadores {
+        - List~Trabalhador~ trabalhadores
+        + adicionar(Trabalhador)
+        + obter(int): Trabalhador
+        + contar(): int
+        + criarIterador(): Iterador~Trabalhador~
+    }
+
+    class IteradorTrabalhadores {
+        - ListaTrabalhadores lista
+        - int atual
+        + hasNext(): boolean
+        + next(): Trabalhador
+    }
+
+    class Main {
+        + main(String[])
+        + imprimirTrabalhadores(Iterador~Trabalhador~)
+    }
+
+    ListaTrabalhadores --> Trabalhador : contém
+    ListaTrabalhadores ..|> Agregado~Trabalhador~
+    IteradorTrabalhadores ..|> Iterador~Trabalhador~
+    ListaTrabalhadores --> IteradorTrabalhadores : cria
+    IteradorTrabalhadores --> ListaTrabalhadores : itera
+    Main --> Agregado~Trabalhador~ : usa
+    Main --> Iterador~Trabalhador~ : usa
+
+
+```
+
+  
 ## Código sem o Iterator
 
 ```java
@@ -145,24 +220,30 @@ import java.util.Iterator;
 public class Main {
 
     public static void imprimirTrabalhadores(Iterator<Trabalhador> iterador) {
-        while (iterador.hasNext()) {
-            Trabalhador t = iterador.next();
-            t.imprimir();
+        while (iterador.hasNext()) { 
+            Trabalhador t = iterador.next(); 
+            t.imprimir(); 
         }
     }
 
     public static void main(String[] args) {
-        ListaTrabalhadores lista = new ListaTrabalhadores();
-        lista.adicionar(new Trabalhador("Ana"));
+        ListaTrabalhadores lista = new ListaTrabalhadores(); 
+        lista.adicionar(new Trabalhador("Ana")); 
         lista.adicionar(new Trabalhador("Bruna"));
         lista.adicionar(new Trabalhador("Carlos"));
         lista.adicionar(new Trabalhador("Daniel"));
 
-        Iterator<Trabalhador> iterador = lista.criarIterador();
-        imprimirTrabalhadores(iterador);
+        System.out.println("Número total de trabalhadores: " + lista.contar());
+
+        for (int i = 0; i < lista.contar(); i++) {
+            Trabalhador t = lista.obter(i);
+            System.out.println("Índice do trabalhador " + t.getNome() + ": " + i);
+        }
+
+        Iterator<Trabalhador> iterador = lista.criarIterador(); 
+        imprimirTrabalhadores(iterador); 
     }
 }
-
 
 public class Trabalhador {
     private String nome;
@@ -174,86 +255,15 @@ public class Trabalhador {
     public void imprimir() {
         System.out.println("Trabalhador: " + nome);
     }
+
+    public String getNome() {
+        return nome;
+    }
 }
 
 
 ```
 
-## Cenário sem o Iterator
-``` mermaid 
-classDiagram
-    class Trabalhador {
-        - String nome
-        + imprimir()
-    }
-
-    class ListaTrabalhadores {
-        - List~Trabalhador~ trabalhadores
-        + adicionar(Trabalhador)
-        + obter(int): Trabalhador
-        + contar(): int
-        + imprimirTodos()
-    }
-
-    class Main {
-        + main(String[])
-    }
-
-    Main --> ListaTrabalhadores : usa
-    ListaTrabalhadores --> Trabalhador : contém
-
-```
-
-## Cenário Com o Iterator
-``` mermaid 
-
-classDiagram
-    class Iterador~T~ {
-        + hasNext(): boolean
-        + next(): T
-    }
-
-    class Agregado~T~ {
-        + criarIterador(): Iterador~T~
-    }
-
-    class Trabalhador {
-        - String nome
-        + imprimir()
-    }
-
-    class ListaTrabalhadores {
-        - List~Trabalhador~ trabalhadores
-        + adicionar(Trabalhador)
-        + obter(int): Trabalhador
-        + contar(): int
-        + criarIterador(): Iterador~Trabalhador~
-    }
-
-    class IteradorTrabalhadores {
-        - ListaTrabalhadores lista
-        - int atual
-        + hasNext(): boolean
-        + next(): Trabalhador
-    }
-
-    class Main {
-        + main(String[])
-        + imprimirTrabalhadores(Iterador~Trabalhador~)
-    }
-
-    ListaTrabalhadores --> Trabalhador : contém
-    ListaTrabalhadores ..|> Agregado~Trabalhador~
-    IteradorTrabalhadores ..|> Iterador~Trabalhador~
-    ListaTrabalhadores --> IteradorTrabalhadores : cria
-    IteradorTrabalhadores --> ListaTrabalhadores : itera
-    Main --> Agregado~Trabalhador~ : usa
-    Main --> Iterador~Trabalhador~ : usa
-
-
-```
-
-  
 
 
 ## Consequências
