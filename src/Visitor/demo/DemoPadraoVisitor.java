@@ -8,8 +8,8 @@ import visitor.VisitorVisualizacao;
 public class DemoPadraoVisitor {
     public static void main(String[] args) {
         EstruturaObjeto estruturaObj = new EstruturaObjeto();
-        estruturaObj.addElemento(new Produto());
-        estruturaObj.addElemento(new Servico());
+        estruturaObj.addElemento(new Produto("Produto A", 100))
+        estruturaObj.addElemento(new Servico("Servico Basico", 5));
 
         VisitorVisualizacao visitorVisualizacao = new VisitorVisualizacao();
         VisitorExportacao visitorExportacao = new VisitorExportacao();

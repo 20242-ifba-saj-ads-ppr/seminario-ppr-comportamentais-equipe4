@@ -27,15 +27,11 @@ Utilize o padrão Visitor nos seguintes cenários:
 ## Cenário Sem o Visitor
 ```mermaid
 classDiagram
-    class EstruturaObjeto {
-        -produtos: List~Produto~
-        -servicos: List~Servico~
-        +addProduto(Produto produto)
-        +addServico(Servico servico)
-        +removeProduto(Produto produto)
-        +removeServico(Servico servico)
-        +visualizarElementos()
-        +exportarElementos()
+      class Elemento {
+        <<abstract>>
+        +exibirDetalhes()
+        +visualizar()
+        +exportar()
     }
 
     class Produto {
@@ -58,8 +54,17 @@ classDiagram
         +exportar()
     }
 
-    EstruturaObjeto o--> "*" Produto
-    EstruturaObjeto o--> "*" Servico
+    class EstruturaObjeto {
+        -elementos: List~Elemento~
+        +addElemento(Elemento elemento)
+        +removeElemento(Elemento elemento)
+        +visualizarElementos()
+        +exportarElementos()
+    }
+
+Elemento <|-- Produto
+Elemento <|-- Servico
+EstruturaObjeto o--> "*" Elemento
 ```
 
 ## Cenário Com o Visitor

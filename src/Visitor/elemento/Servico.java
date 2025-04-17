@@ -3,10 +3,15 @@ package elemento;
 import visitor.Visitor;
 
 public class Servico implements Elemento {
-    private String descricao = "servico basico";
-    private int duracaoHoras = 5;
+    private String descricao;
+    private int duracaoHoras;
 
  
+    public Servico(String descricao, int duracaoHoras) {
+        this.descricao = descricao;
+        this.duracaoHoras = duracaoHoras;
+    }
+
     public String getDescricao() {
         return descricao;
     }

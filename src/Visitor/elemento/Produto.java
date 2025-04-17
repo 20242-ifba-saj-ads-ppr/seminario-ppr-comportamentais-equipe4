@@ -2,8 +2,14 @@ package elemento;
 import visitor.Visitor;
 
 public class Produto implements Elemento {
-    private String nome = "Produto A";
-    private double preco = 100;
+    private String nome;
+    private double preco;
+    
+    public Produto(String nome, double preco){
+        this.nome = nome;
+        this.preco = preco;
+    }
+
 
     public String getNome() {
         return nome;
